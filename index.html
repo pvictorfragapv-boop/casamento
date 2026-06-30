@@ -189,6 +189,44 @@
     .gift-links { display: flex; flex-wrap: wrap; gap: 8px; }
     .gift-link { display: inline-block; font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--marrom-claro); text-decoration: none; border: 1px solid var(--creme-escuro); padding: 5px 12px; transition: all 0.25s; }
     .gift-link:hover { background: var(--creme); border-color: var(--dourado); color: var(--marrom); }
+    .gift-price { font-size: 13px; font-style: italic; color: var(--marrom-claro); margin-bottom: 8px; }
+    .gift-pix-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--branco); text-decoration: none; background: var(--marrom-claro);
+      border: 1px solid var(--marrom-claro); padding: 6px 14px; cursor: pointer; transition: all 0.25s;
+    }
+    .gift-pix-btn:hover { background: var(--marrom); border-color: var(--marrom); }
+
+    /* ── MODAL PIX ── */
+    .pix-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(19,7,6,0.78); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .pix-overlay.open { display: flex; }
+    .pix-modal {
+      background: var(--branco); max-width: 360px; width: 100%;
+      border: 1px solid var(--creme-escuro); padding: 36px 30px 30px;
+      text-align: center; position: relative; max-height: 90vh; overflow-y: auto;
+    }
+    .pix-modal-close {
+      position: absolute; top: 14px; right: 16px; background: none; border: none;
+      font-size: 20px; color: var(--marrom-claro); cursor: pointer; line-height: 1; padding: 4px;
+    }
+    .pix-modal-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.32em; color: var(--dourado); text-transform: uppercase; margin-bottom: 10px; }
+    .pix-modal-item { font-size: clamp(18px,3vw,22px); font-weight: 300; color: var(--marrom); margin-bottom: 4px; }
+    .pix-modal-value { font-family: 'Cinzel', serif; font-size: 15px; color: var(--marrom-claro); margin-bottom: 22px; }
+    .pix-qr-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+    .pix-qr-wrap img { width: 200px; height: 200px; border: 1px solid var(--creme-escuro); background: #fff; }
+    .pix-copy-btn {
+      width: 100%; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--marrom); background: var(--creme); border: 1px solid var(--creme-escuro);
+      padding: 13px 16px; cursor: pointer; transition: all 0.25s; margin-bottom: 10px;
+    }
+    .pix-copy-btn:hover { background: var(--dourado-claro); border-color: var(--dourado); }
+    .pix-copy-btn.copied { background: var(--marrom-claro); color: var(--branco); border-color: var(--marrom-claro); }
+    .pix-modal-hint { font-size: 13px; font-style: italic; color: var(--marrom-claro); opacity: 0.75; line-height: 1.6; }
 
     /* ── CONFIRMAÇÃO ── */
     #confirmacao { background: var(--creme); text-align: center; }
@@ -267,11 +305,6 @@
     </p>
   </div>
 
-  <!-- Serra dos Órgãos — silhueta extraída da imagem real -->
-    <!-- Serra dos Órgãos — silhueta nativa, proporção preservada -->
-    <!-- Serra dos Órgãos — silhueta real + extensão orgânica lateral -->
-    <!-- Serra dos Órgãos — múltiplas camadas com profundidade -->
-    <!-- Serra hero — ondas douradas originais -->
   <svg class="serra-hero" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="sg1" x1="0" y1="0" x2="0" y2="1">
@@ -308,17 +341,10 @@
       <path d="M0,364 Q18,358 36,364 Q54,370 72,364 Q90,358 108,364 Q126,370 144,364 Q162,358 180,364 Q198,370 216,364 Q234,358 252,364 Q270,370 288,364 Q306,358 324,364 Q342,370 360,364 Q378,358 396,364 Q414,370 432,364 Q450,358 468,364 Q486,370 504,364 Q522,358 540,364 Q558,370 576,364 Q594,358 612,364 Q630,370 648,364 Q666,358 684,364 Q702,370 720,364 Q738,358 756,364 Q774,370 792,364 Q810,358 828,364 Q846,370 864,364 Q882,358 900,364 Q918,370 936,364 Q954,358 972,364 Q990,370 1008,364 Q1026,358 1044,364 Q1062,370 1080,364 Q1098,358 1116,364 Q1134,370 1152,364 Q1170,358 1188,364 Q1206,370 1224,364 Q1242,358 1260,364 Q1278,370 1296,364 Q1314,358 1332,364 Q1350,370 1368,364 Q1386,358 1404,364 Q1422,370 1440,364"/>
     </g>
   </svg>
-  <!-- Serra dos Órgãos — versão mobile (portrait), centrada no Dedo de Deus -->
   <svg class="serra-hero-mob" viewBox="0 0 400 480" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-  <path fill="#C9A96E" fill-opacity="0.06" d="M 0,480 L 0,123.6 L 2,123.5 L 4,123.5 L 6,123.4 L 8,123.3 L 10,123.2 L 12,123.0 L 14,122.8 L 16,122.6 L 18,122.3 L 20,122.0 L 22,121.7 L 24,121.3 L 26,120.9 L 28,120.5 L 30,120.0 L 32,119.4 L 34,118.8 L 36,118.2 L 38,117.5 L 40,116.8 L 42,115.9 L 44,115.1 L 46,114.1 L 48,113.2 L 50,112.1 L 52,111.0 L 54,109.8 L 56,108.6 L 58,107.3 L 60,105.9 L 62,104.5 L 64,103.0 L 66,101.4 L 68,99.8 L 70,98.1 L 72,96.3 L 74,94.5 L 76,92.6 L 78,90.7 L 80,88.7 L 82,86.6 L 84,84.5 L 86,82.4 L 88,80.2 L 90,78.0 L 92,75.7 L 94,73.4 L 96,71.1 L 98,68.7 L 100,66.3 L 102,63.9 L 104,61.5 L 106,59.0 L 108,56.5 L 110,54.1 L 112,51.6 L 114,49.1 L 116,46.6 L 118,44.1 L 120,41.7 L 122,39.2 L 124,36.8 L 126,34.3 L 128,31.9 L 130,29.5 L 132,27.2 L 134,24.9 L 136,22.6 L 138,20.3 L 140,18.1 L 142,16.0 L 144,13.9 L 146,11.8 L 148,9.8 L 150,7.8 L 152,5.9 L 154,4.1 L 156,2.3 L 158,0.6 L 160,0.0 L 162,0.0 L 164,0.0 L 166,0.0 L 168,0.0 L 170,0.0 L 172,0.0 L 174,0.0 L 176,0.0 L 178,0.0 L 180,0.0 L 182,0.0 L 184,0.0 L 186,0.0 L 188,0.0 L 190,0.0 L 192,0.0 L 194,0.0 L 196,0.0 L 198,0.0 L 200,0.0 L 202,0.0 L 204,0.0 L 206,0.0 L 208,0.0 L 210,0.0 L 212,0.0 L 214,0.0 L 216,0.0 L 218,0.0 L 220,0.0 L 222,0.0 L 224,0.0 L 226,0.0 L 228,0.0 L 230,0.0 L 232,0.0 L 234,0.0 L 236,0.0 L 238,0.0 L 240,0.0 L 242,0.0 L 244,0.0 L 246,0.0 L 248,0.0 L 250,0.0 L 252,0.0 L 254,0.0 L 256,0.4 L 258,0.8 L 260,1.0 L 262,1.2 L 264,1.3 L 266,1.3 L 268,1.3 L 270,1.1 L 272,0.9 L 274,0.5 L 276,0.1 L 278,0.0 L 280,0.0 L 282,0.0 L 284,0.0 L 286,0.0 L 288,0.0 L 290,0.0 L 292,0.0 L 294,0.0 L 296,0.0 L 298,0.0 L 300,0.0 L 302,0.0 L 304,0.0 L 306,0.0 L 308,0.0 L 310,0.0 L 312,0.0 L 314,0.0 L 316,0.0 L 318,0.0 L 320,0.0 L 322,0.0 L 324,0.0 L 326,0.0 L 328,0.0 L 330,0.0 L 332,0.0 L 334,0.0 L 336,0.0 L 338,0.0 L 340,0.0 L 342,0.0 L 344,0.0 L 346,0.0 L 348,0.0 L 350,0.0 L 352,0.0 L 354,0.0 L 356,0.0 L 358,0.0 L 360,0.0 L 362,0.0 L 364,0.0 L 366,0.0 L 368,0.0 L 370,0.0 L 372,0.0 L 374,0.0 L 376,0.0 L 378,0.0 L 380,0.0 L 382,0.0 L 384,0.0 L 386,0.0 L 388,0.0 L 390,0.0 L 392,0.0 L 394,0.0 L 396,0.0 L 398,0.0 L 399,0.0 L 400,480 Z"/>
-  <path fill="#a06030" fill-opacity="0.1" d="M 0,480 L 0,167.5 L 2,167.5 L 4,167.6 L 6,167.7 L 8,167.8 L 10,168.0 L 12,168.2 L 14,168.4 L 16,168.6 L 18,168.8 L 20,169.1 L 22,169.3 L 24,169.5 L 26,169.7 L 28,169.8 L 30,169.9 L 32,170.0 L 34,170.0 L 36,169.9 L 38,169.8 L 40,169.6 L 42,169.3 L 44,168.8 L 46,168.3 L 48,167.7 L 50,166.9 L 52,166.1 L 54,165.1 L 56,164.0 L 58,162.7 L 60,161.4 L 62,159.9 L 64,158.2 L 66,156.5 L 68,154.6 L 70,152.7 L 72,150.6 L 74,148.4 L 76,146.0 L 78,143.6 L 80,141.1 L 82,138.6 L 84,135.9 L 86,133.2 L 88,130.4 L 90,127.6 L 92,124.7 L 94,121.7 L 96,118.8 L 98,115.8 L 100,112.8 L 102,109.8 L 104,106.8 L 106,103.7 L 108,100.7 L 110,97.7 L 112,94.8 L 114,91.8 L 116,88.9 L 118,85.9 L 120,83.1 L 122,80.2 L 124,77.4 L 126,74.6 L 128,71.8 L 130,69.1 L 132,66.4 L 134,63.8 L 136,61.2 L 138,58.6 L 140,56.0 L 142,53.5 L 144,51.1 L 146,48.6 L 148,46.2 L 150,43.9 L 152,41.6 L 154,39.3 L 156,37.1 L 158,35.0 L 160,32.9 L 162,30.9 L 164,28.9 L 166,27.0 L 168,25.2 L 170,23.5 L 172,21.9 L 174,20.3 L 176,18.9 L 178,17.6 L 180,16.4 L 182,15.3 L 184,14.4 L 186,13.6 L 188,13.0 L 190,12.5 L 192,12.2 L 194,12.0 L 196,12.0 L 198,12.2 L 200,12.5 L 202,13.0 L 204,13.6 L 206,14.4 L 208,15.4 L 210,16.5 L 212,17.7 L 214,19.1 L 216,20.6 L 218,22.2 L 220,23.9 L 222,25.8 L 224,27.6 L 226,29.6 L 228,31.6 L 230,33.6 L 232,35.7 L 234,37.8 L 236,39.8 L 238,41.9 L 240,43.9 L 242,45.8 L 244,47.7 L 246,49.5 L 248,51.2 L 250,52.9 L 252,54.4 L 254,55.7 L 256,57.0 L 258,58.1 L 260,59.1 L 262,59.9 L 264,60.5 L 266,61.0 L 268,61.3 L 270,61.4 L 272,61.4 L 274,61.2 L 276,60.8 L 278,60.3 L 280,59.6 L 282,58.7 L 284,57.7 L 286,56.5 L 288,55.1 L 290,53.6 L 292,52.0 L 294,50.2 L 296,48.2 L 298,46.2 L 300,44.0 L 302,41.7 L 304,39.3 L 306,36.8 L 308,34.2 L 310,31.5 L 312,28.8 L 314,25.9 L 316,23.0 L 318,20.1 L 320,17.0 L 322,14.0 L 324,10.9 L 326,7.8 L 328,4.6 L 330,1.5 L 332,0.0 L 334,0.0 L 336,0.0 L 338,0.0 L 340,0.0 L 342,0.0 L 344,0.0 L 346,0.0 L 348,0.0 L 350,0.0 L 352,0.0 L 354,0.0 L 356,0.0 L 358,0.0 L 360,0.0 L 362,0.0 L 364,0.0 L 366,0.0 L 368,0.0 L 370,0.0 L 372,0.0 L 374,0.0 L 376,0.0 L 378,0.0 L 380,0.0 L 382,0.0 L 384,0.0 L 386,0.0 L 388,0.0 L 390,0.0 L 392,0.0 L 394,0.0 L 396,0.0 L 398,0.0 L 399,0.0 L 400,480 Z"/>
-  <path fill="#8a3820" fill-opacity="0.15" d="M 0,480 L 0,197.5 L 2,197.7 L 4,198.1 L 6,198.7 L 8,199.5 L 10,200.5 L 12,201.7 L 14,203.0 L 16,204.5 L 18,206.1 L 20,207.7 L 22,209.5 L 24,211.2 L 26,213.0 L 28,214.8 L 30,216.5 L 32,218.1 L 34,219.6 L 36,220.9 L 38,222.2 L 40,223.2 L 42,224.0 L 44,224.6 L 46,225.0 L 48,225.1 L 50,225.0 L 52,224.5 L 54,223.8 L 56,222.9 L 58,221.6 L 60,220.1 L 62,218.3 L 64,216.2 L 66,213.9 L 68,211.3 L 70,208.6 L 72,205.5 L 74,202.3 L 76,198.9 L 78,195.4 L 80,191.7 L 82,187.8 L 84,183.9 L 86,179.9 L 88,175.8 L 90,171.7 L 92,167.6 L 94,163.5 L 96,159.4 L 98,155.4 L 100,151.4 L 102,147.5 L 104,143.6 L 106,139.9 L 108,136.3 L 110,132.8 L 112,129.4 L 114,126.2 L 116,123.1 L 118,120.1 L 120,117.3 L 122,114.6 L 124,112.0 L 126,109.6 L 128,107.2 L 130,104.9 L 132,102.8 L 134,100.7 L 136,98.6 L 138,96.6 L 140,94.6 L 142,92.7 L 144,90.7 L 146,88.7 L 148,86.6 L 150,84.5 L 152,82.4 L 154,80.1 L 156,77.8 L 158,75.4 L 160,72.9 L 162,70.3 L 164,67.6 L 166,64.8 L 168,61.9 L 170,59.0 L 172,56.0 L 174,53.1 L 176,50.1 L 178,47.2 L 180,44.4 L 182,41.7 L 184,39.1 L 186,36.7 L 188,34.5 L 190,32.6 L 192,31.0 L 194,29.8 L 196,28.9 L 198,28.3 L 200,28.2 L 202,28.6 L 204,29.3 L 206,30.5 L 208,32.2 L 210,34.2 L 212,36.7 L 214,39.6 L 216,42.8 L 218,46.3 L 220,50.2 L 222,54.3 L 224,58.6 L 226,63.0 L 228,67.6 L 230,72.2 L 232,76.8 L 234,81.3 L 236,85.8 L 238,90.1 L 240,94.3 L 242,98.3 L 244,102.0 L 246,105.5 L 248,108.6 L 250,111.5 L 252,114.1 L 254,116.3 L 256,118.2 L 258,119.8 L 260,121.1 L 262,122.1 L 264,122.7 L 266,123.1 L 268,123.2 L 270,123.0 L 272,122.6 L 274,121.9 L 276,121.0 L 278,119.8 L 280,118.5 L 282,117.0 L 284,115.3 L 286,113.4 L 288,111.3 L 290,109.2 L 292,106.8 L 294,104.3 L 296,101.7 L 298,99.0 L 300,96.1 L 302,93.2 L 304,90.1 L 306,86.9 L 308,83.6 L 310,80.2 L 312,76.7 L 314,73.2 L 316,69.5 L 318,65.9 L 320,62.1 L 322,58.3 L 324,54.4 L 326,50.6 L 328,46.6 L 330,42.7 L 332,38.8 L 334,34.8 L 336,30.9 L 338,27.0 L 340,23.1 L 342,19.3 L 344,15.5 L 346,11.8 L 348,8.1 L 350,4.5 L 352,1.0 L 354,0.0 L 356,0.0 L 358,0.0 L 360,0.0 L 362,0.0 L 364,0.0 L 366,0.0 L 368,0.0 L 370,0.0 L 372,0.0 L 374,0.0 L 376,0.0 L 378,0.0 L 380,0.0 L 382,0.0 L 384,0.0 L 386,0.0 L 388,0.0 L 390,0.0 L 392,0.0 L 394,0.0 L 396,0.0 L 398,0.0 L 399,0.0 L 400,480 Z"/>
-  <path fill="#6e2a14" fill-opacity="0.2" d="M 0,480 L 0,213.8 L 2,214.2 L 4,215.1 L 6,216.5 L 8,218.4 L 10,220.8 L 12,223.5 L 14,226.7 L 16,230.1 L 18,233.8 L 20,237.8 L 22,241.8 L 24,246.0 L 26,250.1 L 28,254.1 L 30,258.0 L 32,261.7 L 34,265.1 L 36,268.2 L 38,270.9 L 40,273.3 L 42,275.2 L 44,276.7 L 46,277.7 L 48,278.3 L 50,278.5 L 52,278.2 L 54,277.4 L 56,276.2 L 58,274.7 L 60,272.7 L 62,270.3 L 64,267.6 L 66,264.4 L 68,261.0 L 70,257.2 L 72,253.1 L 74,248.7 L 76,244.1 L 78,239.2 L 80,234.1 L 82,228.8 L 84,223.4 L 86,217.8 L 88,212.2 L 90,206.6 L 92,201.0 L 94,195.4 L 96,189.9 L 98,184.6 L 100,179.5 L 102,174.5 L 104,169.8 L 106,165.3 L 108,161.2 L 110,157.3 L 112,153.7 L 114,150.4 L 116,147.4 L 118,144.7 L 120,142.2 L 122,140.1 L 124,138.1 L 126,136.4 L 128,134.8 L 130,133.4 L 132,132.2 L 134,131.1 L 136,130.1 L 138,129.2 L 140,128.3 L 142,127.5 L 144,126.8 L 146,126.1 L 148,125.3 L 150,124.5 L 152,123.7 L 154,122.7 L 156,121.6 L 158,120.3 L 160,118.7 L 162,116.8 L 164,114.5 L 166,111.8 L 168,108.7 L 170,105.1 L 172,101.0 L 174,96.4 L 176,91.3 L 178,85.8 L 180,79.9 L 182,73.8 L 184,67.4 L 186,61.0 L 188,54.7 L 190,48.6 L 192,42.9 L 194,37.8 L 196,33.4 L 198,29.9 L 200,27.3 L 202,25.8 L 204,25.5 L 206,26.5 L 208,28.7 L 210,32.1 L 212,36.8 L 214,42.6 L 216,49.4 L 218,57.1 L 220,65.5 L 222,74.5 L 224,83.9 L 226,93.5 L 228,103.1 L 230,112.5 L 232,121.5 L 234,130.1 L 236,138.0 L 238,145.2 L 240,151.7 L 242,157.3 L 244,162.0 L 246,166.0 L 248,169.1 L 250,171.5 L 252,173.2 L 254,174.3 L 256,174.8 L 258,174.9 L 260,174.5 L 262,173.8 L 264,172.9 L 266,171.8 L 268,170.5 L 270,169.1 L 272,167.6 L 274,166.0 L 276,164.4 L 278,162.7 L 280,160.9 L 282,159.1 L 284,157.2 L 286,155.2 L 288,153.1 L 290,150.9 L 292,148.5 L 294,146.0 L 296,143.4 L 298,140.6 L 300,137.6 L 302,134.5 L 304,131.2 L 306,127.8 L 308,124.2 L 310,120.5 L 312,116.7 L 314,112.8 L 316,108.8 L 318,104.7 L 320,100.4 L 322,96.1 L 324,91.8 L 326,87.4 L 328,82.9 L 330,78.4 L 332,73.9 L 334,69.3 L 336,64.8 L 338,60.2 L 340,55.7 L 342,51.3 L 344,46.9 L 346,42.6 L 348,38.3 L 350,34.2 L 352,30.2 L 354,26.3 L 356,22.6 L 358,19.0 L 360,15.6 L 362,12.4 L 364,9.3 L 366,6.4 L 368,3.6 L 370,1.1 L 372,0.0 L 374,0.0 L 376,0.0 L 378,0.0 L 380,0.0 L 382,0.0 L 384,0.0 L 386,0.0 L 388,0.0 L 390,0.0 L 392,0.0 L 394,0.0 L 396,0.0 L 398,0.0 L 399,0.0 L 400,480 Z"/>
-  <path fill="#561f0e" fill-opacity="0.3" d="M 0,480 L 0,233.0 L 2,233.2 L 4,233.9 L 6,235.1 L 8,236.8 L 10,239.2 L 12,242.5 L 14,246.6 L 16,251.7 L 18,257.6 L 20,264.2 L 22,271.2 L 24,278.5 L 26,285.7 L 28,292.6 L 30,298.9 L 32,304.4 L 34,309.2 L 36,313.1 L 38,316.2 L 40,318.5 L 42,320.1 L 44,321.1 L 46,321.5 L 48,321.5 L 50,321.0 L 52,320.2 L 54,319.1 L 56,317.6 L 58,315.8 L 60,313.7 L 62,311.3 L 64,308.5 L 66,305.3 L 68,301.7 L 70,297.6 L 72,293.2 L 74,288.3 L 76,283.0 L 78,277.4 L 80,271.5 L 82,265.2 L 84,258.8 L 86,252.1 L 88,245.4 L 90,238.6 L 92,231.7 L 94,224.9 L 96,218.1 L 98,211.5 L 100,205.1 L 102,199.1 L 104,193.5 L 106,188.3 L 108,183.6 L 110,179.6 L 112,176.0 L 114,173.0 L 116,170.5 L 118,168.5 L 120,167.0 L 122,165.8 L 124,165.0 L 126,164.3 L 128,163.9 L 130,163.5 L 132,163.1 L 134,162.5 L 136,161.7 L 138,160.8 L 140,159.6 L 142,158.4 L 144,157.2 L 146,156.0 L 148,155.2 L 150,154.6 L 152,154.5 L 154,154.7 L 156,155.3 L 158,156.1 L 160,156.9 L 162,157.5 L 164,157.8 L 166,157.5 L 168,156.6 L 170,154.9 L 172,152.3 L 174,148.6 L 176,143.7 L 178,137.4 L 180,129.6 L 182,120.2 L 184,109.2 L 186,97.1 L 188,84.2 L 190,71.2 L 192,58.6 L 194,47.2 L 196,37.4 L 198,29.4 L 200,23.5 L 202,19.6 L 204,17.7 L 206,17.6 L 208,19.4 L 210,23.2 L 212,29.2 L 214,37.4 L 216,48.1 L 218,61.2 L 220,76.5 L 222,93.5 L 224,111.6 L 226,130.0 L 228,147.8 L 230,164.3 L 232,178.9 L 234,191.2 L 236,201.2 L 238,208.8 L 240,214.4 L 242,218.1 L 244,220.4 L 246,221.4 L 248,221.5 L 250,220.8 L 252,219.6 L 254,218.0 L 256,216.0 L 258,213.8 L 260,211.4 L 262,208.9 L 264,206.4 L 266,203.9 L 268,201.6 L 270,199.5 L 272,197.7 L 274,196.3 L 276,195.2 L 278,194.3 L 280,193.6 L 282,192.9 L 284,192.1 L 286,191.1 L 288,189.8 L 290,188.1 L 292,185.9 L 294,183.4 L 296,180.5 L 298,177.3 L 300,173.9 L 302,170.3 L 304,166.6 L 306,162.8 L 308,159.0 L 310,155.1 L 312,151.2 L 314,147.2 L 316,143.1 L 318,138.9 L 320,134.5 L 322,130.0 L 324,125.4 L 326,120.8 L 328,116.1 L 330,111.3 L 332,106.6 L 334,101.7 L 336,96.9 L 338,92.0 L 340,87.0 L 342,82.0 L 344,77.0 L 346,72.1 L 348,67.3 L 350,62.7 L 352,58.3 L 354,54.1 L 356,50.1 L 358,46.4 L 360,43.0 L 362,39.8 L 364,36.9 L 366,34.2 L 368,31.6 L 370,29.1 L 372,26.7 L 374,24.4 L 376,22.2 L 378,20.1 L 380,18.2 L 382,16.6 L 384,15.3 L 386,14.3 L 388,13.7 L 390,13.3 L 392,13.3 L 394,13.3 L 396,13.5 L 398,13.6 L 399,13.6 L 400,480 Z"/>
-  <path fill="#421609" fill-opacity="0.5" d="M 0,480 L 0,258.4 L 2,258.2 L 4,257.9 L 6,257.8 L 8,258.0 L 10,259.0 L 12,261.0 L 14,264.2 L 16,269.0 L 18,275.6 L 20,284.4 L 22,295.0 L 24,306.2 L 26,316.7 L 28,325.7 L 30,333.0 L 32,338.5 L 34,342.3 L 36,345.1 L 38,347.3 L 40,349.2 L 42,350.5 L 44,351.0 L 46,350.9 L 48,350.2 L 50,349.4 L 52,348.3 L 54,347.0 L 56,345.4 L 58,343.7 L 60,341.8 L 62,339.9 L 64,337.7 L 66,334.9 L 68,331.3 L 70,326.9 L 72,322.2 L 74,317.2 L 76,312.1 L 78,306.6 L 80,300.2 L 82,293.0 L 84,285.4 L 86,278.2 L 88,271.4 L 90,265.0 L 92,258.7 L 94,252.0 L 96,244.5 L 98,236.3 L 100,228.2 L 102,221.3 L 104,215.5 L 106,210.4 L 108,205.6 L 110,201.4 L 112,198.1 L 114,195.6 L 116,193.6 L 118,191.9 L 120,190.4 L 122,189.3 L 124,188.6 L 126,188.6 L 128,189.1 L 130,190.0 L 132,191.0 L 134,191.6 L 136,191.4 L 138,190.0 L 140,187.7 L 142,185.1 L 144,182.5 L 146,180.1 L 148,177.9 L 150,176.3 L 152,175.5 L 154,175.8 L 156,177.6 L 158,181.0 L 160,185.2 L 162,188.7 L 164,190.2 L 166,189.8 L 168,187.9 L 170,185.8 L 172,183.7 L 174,181.4 L 176,178.2 L 178,174.0 L 180,169.1 L 182,163.5 L 184,155.0 L 186,140.2 L 188,117.4 L 190,90.1 L 192,66.0 L 194,50.2 L 196,41.9 L 198,38.1 L 200,36.3 L 202,35.4 L 204,35.2 L 206,35.4 L 208,36.1 L 210,37.5 L 212,39.8 L 214,43.8 L 216,50.5 L 218,61.3 L 220,78.0 L 222,102.7 L 224,134.4 L 226,167.0 L 228,194.1 L 230,214.2 L 232,228.6 L 234,238.7 L 236,245.3 L 238,249.5 L 240,252.1 L 242,253.4 L 244,253.5 L 246,252.6 L 248,251.2 L 250,249.7 L 252,248.0 L 254,246.0 L 256,243.8 L 258,241.3 L 260,238.6 L 262,235.8 L 264,232.7 L 266,229.4 L 268,225.9 L 270,222.7 L 272,220.1 L 274,218.3 L 276,217.7 L 278,218.0 L 280,219.1 L 282,220.4 L 284,221.3 L 286,221.2 L 288,220.1 L 290,218.1 L 292,215.6 L 294,212.5 L 296,208.8 L 298,204.9 L 300,200.9 L 302,196.7 L 304,192.4 L 306,188.5 L 308,184.9 L 310,181.5 L 312,178.0 L 314,174.4 L 316,170.8 L 318,166.9 L 320,162.3 L 322,157.1 L 324,151.6 L 326,146.4 L 328,141.7 L 330,137.3 L 332,132.9 L 334,128.5 L 336,124.0 L 338,119.2 L 340,114.2 L 342,108.8 L 344,102.9 L 346,96.8 L 348,91.4 L 350,86.9 L 352,83.1 L 354,79.1 L 356,74.8 L 358,70.2 L 360,66.2 L 362,63.2 L 364,61.1 L 366,59.5 L 368,57.9 L 370,56.0 L 372,53.6 L 374,50.8 L 376,47.9 L 378,45.0 L 380,42.2 L 382,39.8 L 384,38.0 L 386,37.0 L 388,36.6 L 390,36.8 L 392,37.5 L 394,39.0 L 396,41.0 L 398,42.6 L 399,42.9 L 400,480 Z"/>
-  <path fill="#321006" fill-opacity="0.82" d="M 0,480 L 0,270.5 L 2,270.5 L 4,269.1 L 6,269.1 L 8,269.1 L 10,269.1 L 12,270.5 L 14,274.9 L 16,279.3 L 18,285.1 L 20,290.9 L 22,306.9 L 24,321.5 L 26,330.2 L 28,340.4 L 30,346.2 L 32,353.5 L 34,354.9 L 36,356.4 L 38,357.8 L 40,360.7 L 42,363.6 L 44,363.6 L 46,362.2 L 48,362.2 L 50,360.7 L 52,360.7 L 54,359.3 L 56,357.8 L 58,354.9 L 60,353.5 L 62,352.0 L 64,349.1 L 66,349.1 L 68,344.7 L 70,337.5 L 72,334.5 L 74,328.7 L 76,322.9 L 78,320.0 L 80,314.2 L 82,304.0 L 84,298.2 L 86,288.0 L 88,282.2 L 90,276.4 L 92,270.5 L 94,264.7 L 96,257.5 L 98,248.7 L 100,237.1 L 102,229.8 L 104,226.9 L 106,224.0 L 108,216.7 L 110,210.9 L 112,209.5 L 114,206.5 L 116,205.1 L 118,203.6 L 120,202.2 L 122,200.7 L 124,199.3 L 126,199.3 L 128,200.7 L 130,200.7 L 132,202.2 L 134,205.1 L 136,205.1 L 138,203.6 L 140,199.3 L 142,196.4 L 144,193.5 L 146,192.0 L 148,189.1 L 150,186.2 L 152,186.2 L 154,186.2 L 156,186.2 L 158,190.5 L 160,199.3 L 162,203.6 L 164,205.1 L 166,202.2 L 168,199.3 L 170,196.4 L 172,194.9 L 174,194.9 L 176,192.0 L 178,186.2 L 180,180.4 L 182,176.0 L 184,173.1 L 186,165.8 L 188,151.3 L 190,88.7 L 192,61.1 L 194,53.8 L 196,50.9 L 198,48.0 L 200,46.5 L 202,46.5 L 204,46.5 L 206,46.5 L 208,46.5 L 210,48.0 L 212,50.9 L 214,52.4 L 216,58.2 L 218,65.5 L 220,84.4 L 222,93.1 L 224,151.3 L 226,194.9 L 228,212.4 L 230,229.8 L 232,247.3 L 234,254.5 L 236,258.9 L 238,261.8 L 240,264.7 L 242,267.6 L 244,266.2 L 246,264.7 L 248,263.3 L 250,261.8 L 252,260.4 L 254,257.5 L 256,256.0 L 258,253.1 L 260,250.2 L 262,247.3 L 264,244.4 L 266,241.5 L 268,237.1 L 270,232.7 L 272,229.8 L 274,228.4 L 276,228.4 L 278,228.4 L 280,231.3 L 282,232.7 L 284,234.2 L 286,234.2 L 288,232.7 L 290,229.8 L 292,228.4 L 294,225.5 L 296,221.1 L 298,215.3 L 300,212.4 L 302,209.5 L 304,202.2 L 306,199.3 L 308,197.8 L 310,193.5 L 312,189.1 L 314,186.2 L 316,181.8 L 318,178.9 L 320,176.0 L 322,170.2 L 324,162.9 L 326,157.1 L 328,152.7 L 330,149.8 L 332,145.5 L 334,139.6 L 336,136.7 L 338,130.9 L 340,126.5 L 342,120.7 L 344,116.4 L 346,107.6 L 348,100.4 L 350,98.9 L 352,94.5 L 354,91.6 L 356,87.3 L 358,80.0 L 360,77.1 L 362,72.7 L 364,72.7 L 366,71.3 L 368,69.8 L 370,68.4 L 372,65.5 L 374,62.5 L 376,59.6 L 378,56.7 L 380,52.4 L 382,50.9 L 384,48.0 L 386,48.0 L 388,48.0 L 390,48.0 L 392,48.0 L 394,49.5 L 396,52.4 L 398,56.7 L 399,56.7 L 400,480 Z"/>
+  <path fill="#C9A96E" fill-opacity="0.06" d="M 0,480 L 0,123.6 L 400,123.6 L 400,480 Z"/>
   </svg>
-    <div class="scroll-hint">↓</div>
+  <div class="scroll-hint">↓</div>
 </section>
 
 <!-- ══════════ NAV ══════════ -->
@@ -383,9 +409,8 @@
       <div><p class="tl-title">Encerramento</p><p class="tl-sub">Até breve, com muito amor</p></div>
     </div>
   </div>
-  <!-- Serra dos Órgãos — versão compacta cerimônia -->
   <svg class="serra-cerimonia" viewBox="0 0 1440 240" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="margin-top:64px;">
-    <path fill="#130706" d="M 0,240 L 0,145.8 L 4.0,146.0 L 8.0,146.3 L 12.0,146.5 L 16.0,146.8 L 20.0,146.8 L 24.0,146.8 L 28.0,146.8 L 32.0,146.5 L 36.0,146.3 L 40.0,146.0 L 44.0,145.5 L 48.0,144.5 L 52.0,144.0 L 56.0,143.0 L 60.0,142.2 L 64.0,141.5 L 68.0,140.7 L 72.1,139.7 L 76.1,138.9 L 80.1,138.4 L 84.1,137.4 L 88.1,136.7 L 92.1,135.7 L 96.1,134.9 L 100.1,133.6 L 104.1,132.9 L 108.1,131.9 L 112.1,130.9 L 116.1,129.6 L 120.1,128.6 L 124.1,127.6 L 128.1,127.1 L 132.1,126.1 L 136.1,125.1 L 140.1,124.0 L 144.1,122.8 L 148.1,121.8 L 152.1,120.8 L 156.1,120.3 L 160.1,119.2 L 164.1,118.0 L 168.1,117.2 L 172.1,116.2 L 176.1,115.2 L 180.1,114.4 L 184.1,113.4 L 188.1,112.7 L 192.1,112.2 L 196.1,111.7 L 200.1,111.4 L 204.1,111.2 L 208.1,110.9 L 212.1,110.7 L 216.2,110.7 L 220.2,110.7 L 224.2,110.7 L 228.2,111.2 L 232.2,111.4 L 236.2,111.9 L 240.2,112.9 L 244.2,114.7 L 248.2,116.5 L 252.2,118.2 L 256.2,119.5 L 260.2,122.0 L 264.2,125.3 L 268.2,129.1 L 272.2,132.4 L 276.2,135.2 L 280.2,137.7 L 284.2,139.2 L 288.2,141.0 L 292.2,142.2 L 296.2,143.5 L 300.2,144.0 L 304.2,144.5 L 308.2,144.5 L 312.2,143.5 L 316.2,143.5 L 320.2,143.0 L 324.2,142.5 L 328.2,142.0 L 332.2,141.5 L 336.2,141.0 L 340.2,140.5 L 344.2,140.0 L 348.2,139.7 L 352.2,139.5 L 356.2,139.2 L 360.3,139.2 L 364.3,138.7 L 368.3,138.4 L 372.3,138.2 L 376.3,137.7 L 380.3,137.4 L 384.3,137.4 L 388.3,136.9 L 392.3,136.7 L 396.3,136.4 L 400.3,136.2 L 404.3,135.7 L 408.3,135.4 L 412.3,135.2 L 416.3,134.9 L 420.3,135.2 L 424.3,135.2 L 428.3,134.9 L 432.3,134.7 L 436.3,134.7 L 440.3,134.4 L 444.3,134.1 L 448.3,133.9 L 452.3,133.6 L 456.3,133.4 L 460.3,133.1 L 464.3,132.9 L 468.3,131.9 L 472.3,129.9 L 476.3,128.1 L 480.3,126.3 L 484.3,124.5 L 488.3,123.0 L 492.3,120.8 L 496.3,118.7 L 500.3,117.2 L 504.4,115.7 L 508.4,114.2 L 512.4,113.2 L 516.4,112.2 L 520.4,111.7 L 524.4,111.2 L 528.4,110.9 L 532.4,110.7 L 536.4,110.4 L 540.4,110.4 L 544.4,110.7 L 548.4,111.2 L 552.4,111.9 L 556.4,113.4 L 560.4,115.2 L 564.4,117.0 L 568.4,121.3 L 572.4,124.3 L 576.4,126.6 L 580.4,128.3 L 584.4,130.1 L 588.4,130.6 L 592.4,130.6 L 596.4,131.4 L 600.4,132.4 L 604.4,132.4 L 608.4,132.4 L 612.4,131.9 L 616.4,131.9 L 620.4,131.6 L 624.4,131.4 L 628.4,131.1 L 632.4,130.9 L 636.4,130.1 L 640.4,129.9 L 644.4,129.3 L 648.5,128.8 L 652.5,127.6 L 656.5,126.3 L 660.5,125.3 L 664.5,123.5 L 668.5,122.8 L 672.5,122.0 L 676.5,120.0 L 680.5,117.7 L 684.5,115.7 L 688.5,113.9 L 692.5,112.9 L 696.5,111.2 L 700.5,109.6 L 704.5,108.1 L 708.5,105.6 L 712.5,102.6 L 716.5,101.1 L 720.5,100.8 L 724.5,99.8 L 728.5,97.8 L 732.5,96.8 L 736.5,96.3 L 740.5,95.7 L 744.5,95.5 L 748.5,95.0 L 752.5,94.7 L 756.5,94.5 L 760.5,94.7 L 764.5,94.7 L 768.5,95.0 L 772.5,95.5 L 776.5,96.0 L 780.5,95.7 L 784.5,94.7 L 788.5,94.0 L 792.6,93.5 L 796.6,93.0 L 800.6,92.2 L 804.6,91.7 L 808.6,91.5 L 812.6,91.5 L 816.6,92.2 L 820.6,93.5 L 824.6,95.2 L 828.6,95.7 L 832.6,95.7 L 836.6,94.7 L 840.6,94.0 L 844.6,93.5 L 848.6,93.7 L 852.6,93.2 L 856.6,91.5 L 860.6,89.9 L 864.6,89.2 L 868.6,88.4 L 872.6,86.1 L 876.6,70.2 L 880.6,63.9 L 884.6,61.4 L 888.6,60.6 L 892.6,60.1 L 896.6,59.9 L 900.6,59.6 L 904.6,59.6 L 908.6,59.6 L 912.6,59.9 L 916.6,60.4 L 920.6,60.9 L 924.6,61.4 L 928.6,63.4 L 932.6,67.7 L 936.7,70.5 L 940.7,90.4 L 944.7,95.5 L 948.7,97.8 L 952.7,102.3 L 956.7,105.6 L 960.7,107.9 L 964.7,108.6 L 968.7,109.4 L 972.7,110.1 L 976.7,110.1 L 980.7,109.6 L 984.7,109.1 L 988.7,108.9 L 992.7,108.4 L 996.7,107.9 L 1000.7,107.6 L 1004.7,106.9 L 1008.7,106.4 L 1012.7,105.6 L 1016.7,104.6 L 1020.7,103.6 L 1024.7,103.1 L 1028.7,102.1 L 1032.7,101.3 L 1036.7,101.1 L 1040.7,101.3 L 1044.7,101.8 L 1048.7,102.6 L 1052.7,102.8 L 1056.7,102.6 L 1060.7,102.1 L 1064.7,101.3 L 1068.7,101.1 L 1072.7,100.0 L 1076.7,99.0 L 1080.8,98.0 L 1084.8,97.3 L 1088.8,95.5 L 1092.8,94.5 L 1096.8,94.0 L 1100.8,93.5 L 1104.8,92.2 L 1108.8,91.5 L 1112.8,90.7 L 1116.8,89.7 L 1120.8,88.7 L 1124.8,86.4 L 1128.8,85.6 L 1132.8,84.1 L 1136.8,83.4 L 1140.8,82.6 L 1144.8,80.6 L 1148.8,80.3 L 1152.8,79.1 L 1156.8,77.8 L 1160.8,76.5 L 1164.8,75.0 L 1168.8,72.0 L 1172.8,71.5 L 1176.8,71.2 L 1180.8,70.7 L 1184.8,69.2 L 1188.8,68.0 L 1192.8,66.7 L 1196.8,65.7 L 1200.8,65.4 L 1204.8,65.2 L 1208.8,64.9 L 1212.8,64.4 L 1216.8,63.9 L 1220.8,62.9 L 1224.9,62.1 L 1228.9,61.6 L 1232.9,60.9 L 1236.9,60.1 L 1240.9,59.9 L 1244.9,59.9 L 1248.9,59.9 L 1252.9,60.1 L 1256.9,60.4 L 1260.9,61.6 L 1264.9,62.1 L 1268.9,61.6 L 1272.9,61.1 L 1276.9,60.6 L 1280.9,60.4 L 1284.9,60.6 L 1288.9,62.1 L 1292.9,63.4 L 1296.9,64.2 L 1300.9,63.9 L 1304.9,63.7 L 1308.9,63.9 L 1312.9,64.2 L 1316.9,64.7 L 1320.9,65.4 L 1324.9,66.4 L 1328.9,66.9 L 1332.9,67.5 L 1336.9,68.2 L 1340.9,69.7 L 1344.9,72.8 L 1348.9,74.8 L 1352.9,75.8 L 1356.9,76.5 L 1360.9,77.8 L 1364.9,79.3 L 1369.0,81.1 L 1373.0,82.6 L 1377.0,83.9 L 1381.0,84.9 L 1385.0,85.4 L 1389.0,85.9 L 1393.0,86.9 L 1397.0,88.9 L 1401.0,90.7 L 1405.0,92.0 L 1409.0,92.5 L 1413.0,93.0 L 1417.0,94.2 L 1421.0,96.0 L 1425.0,97.0 L 1429.0,98.0 L 1433.0,99.0 L 1437.0,100.0 L 1440,101.3 L 1440,240 Z"/>
+    <path fill="#130706" d="M 0,240 L 0,145.8 L 1440,101.3 L 1440,240 Z"/>
   </svg>
 
 </section>
@@ -473,6 +498,24 @@
           <div class="gift-item"><p class="gift-name">Travessa Média</p><div class="gift-links"><a href="https://meli.la/23AqHp4" target="_blank" class="gift-link">Mercado Livre</a></div></div>
           <div class="gift-item"><p class="gift-name">Travessa Grande</p><div class="gift-links"><a href="https://meli.la/2ppY1SC" target="_blank" class="gift-link">Mercado Livre</a></div></div>
         </div>
+        <div class="gift-category">
+          <p class="gift-cat-title">Presentear via Pix</p>
+          <div class="gift-item"><p class="gift-name">Faqueiro 30 peças Inox</p><p class="gift-price">R$ 239,00</p><button class="gift-pix-btn" onclick="openPixModal('Faqueiro 30 peças Inox', 239.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Conjunto de Facas 8 peças Inox</p><p class="gift-price">R$ 149,00</p><button class="gift-pix-btn" onclick="openPixModal('Conjunto de Facas 8 peças Inox', 149.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Kit de Utensílios de Cozinha em Silicone</p><p class="gift-price">R$ 106,00</p><button class="gift-pix-btn" onclick="openPixModal('Kit de Utensílios de Cozinha em Silicone', 106.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Jogo de Lençol Casal Verde</p><p class="gift-price">R$ 160,00</p><button class="gift-pix-btn" onclick="openPixModal('Jogo de Lençol Casal Verde', 160.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Jogo de Lençol Casal Bege</p><p class="gift-price">R$ 160,00</p><button class="gift-pix-btn" onclick="openPixModal('Jogo de Lençol Casal Bege', 160.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Kit Colcha</p><p class="gift-price">R$ 270,00</p><button class="gift-pix-btn" onclick="openPixModal('Kit Colcha', 270.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Edredom Sherpa</p><p class="gift-price">R$ 205,00</p><button class="gift-pix-btn" onclick="openPixModal('Edredom Sherpa', 205.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Kit Fronha em Algodão High Satin</p><p class="gift-price">R$ 120,00</p><button class="gift-pix-btn" onclick="openPixModal('Kit Fronha em Algodão High Satin', 120.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Jarra de Vidro Borossilicato 1,5L</p><p class="gift-price">R$ 105,00</p><button class="gift-pix-btn" onclick="openPixModal('Jarra de Vidro Borossilicato 1,5L', 105.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Jogo de 3 Tábuas de Corte</p><p class="gift-price">R$ 115,00</p><button class="gift-pix-btn" onclick="openPixModal('Jogo de 3 Tábuas de Corte', 115.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Capacho em Fibra de Coco</p><p class="gift-price">R$ 109,00</p><button class="gift-pix-btn" onclick="openPixModal('Capacho em Fibra de Coco', 109.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Toalha de Mesa</p><p class="gift-price">R$ 180,00</p><button class="gift-pix-btn" onclick="openPixModal('Toalha de Mesa', 180.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Jogo de Ramequins</p><p class="gift-price">R$ 124,00</p><button class="gift-pix-btn" onclick="openPixModal('Jogo de Ramequins', 124.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Jogo de Bowls</p><p class="gift-price">R$ 130,00</p><button class="gift-pix-btn" onclick="openPixModal('Jogo de Bowls', 130.00)">Pagar com Pix</button></div>
+          <div class="gift-item"><p class="gift-name">Abajur Contemporâneo</p><p class="gift-price">R$ 244,00</p><button class="gift-pix-btn" onclick="openPixModal('Abajur Contemporâneo', 244.00)">Pagar com Pix</button></div>
+        </div>
       </div></div>
     </div>
 
@@ -527,6 +570,10 @@
           <div class="gift-item"><p class="gift-name">Dako</p><div class="gift-links"><a href="https://amzn.to/4t0bdBs" target="_blank" class="gift-link">Amazon</a><a href="https://meli.la/2VHKZhT" target="_blank" class="gift-link">Mercado Livre</a></div></div>
           <div class="gift-item"><p class="gift-name">EOS</p><div class="gift-links"><a href="https://amzn.to/4t0AkEb" target="_blank" class="gift-link">Amazon</a></div></div>
         </div>
+        <div class="gift-category">
+          <p class="gift-cat-title">Presentear via Pix</p>
+          <div class="gift-item"><p class="gift-name">Tapete TokStok</p><p class="gift-price">R$ 890,00</p><button class="gift-pix-btn" onclick="openPixModal('Tapete TokStok', 890.00)">Pagar com Pix</button></div>
+        </div>
       </div></div>
     </div>
 
@@ -565,6 +612,19 @@
   <p class="footer-verse">"Para que todos vejam, e saibam, e considerem, e juntamente entendam<br>que a mão do Senhor fez isto..." — Isaías 41:20</p>
 </footer>
 
+<!-- ══════════ MODAL PIX ══════════ -->
+<div class="pix-overlay" id="pixOverlay" onclick="if(event.target===this) closePixModal()">
+  <div class="pix-modal">
+    <button class="pix-modal-close" onclick="closePixModal()" aria-label="Fechar">✕</button>
+    <p class="pix-modal-label">Presente via Pix</p>
+    <p class="pix-modal-item" id="pixItemName">—</p>
+    <p class="pix-modal-value" id="pixItemValue">R$ 0,00</p>
+    <div class="pix-qr-wrap"><img id="pixQrImg" src="" alt="QR Code Pix"/></div>
+    <button class="pix-copy-btn" id="pixCopyBtn" onclick="copyPixCode()">Copiar Código Pix</button>
+    <p class="pix-modal-hint">Abra o app do seu banco, escolha Pix → Pix Copia e Cola (ou escaneie o QR Code acima) para concluir o presente. Muito obrigado, com carinho, Paolla &amp; Paulo.</p>
+  </div>
+</div>
+
 <script>
   function tick() {
     const diff = new Date('2026-07-13T11:30:00') - new Date();
@@ -587,6 +647,108 @@
     document.querySelectorAll('.acc-tier').forEach(t => t.classList.remove('open'));
     if (!isOpen) tier.classList.add('open');
   }
+
+  /* ══════════ PIX — Gerador de Pix Copia-e-Cola (BR Code / EMV) + QR Code ══════════ */
+  // ALTERE AQUI se precisar trocar a chave, o nome do titular ou a cidade cadastrada no banco.
+  const PIX_CONFIG = {
+    key:  'paollamcontildes@gmail.com',
+    name: 'Paolla Marinho Contildes', // até 25 caracteres
+    city: 'RIO DE JANEIRO'            // até 15 caracteres — cidade cadastrada na conta
+  };
+
+  let pixCurrentPayload = '';
+
+  function removeAccents(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function pixTLV(id, value) {
+    const len = String(value.length).padStart(2, '0');
+    return id + len + value;
+  }
+
+  function crc16ccitt(str) {
+    let crc = 0xFFFF;
+    for (let i = 0; i < str.length; i++) {
+      crc ^= str.charCodeAt(i) << 8;
+      for (let b = 0; b < 8; b++) {
+        crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+        crc &= 0xFFFF;
+      }
+    }
+    return crc.toString(16).toUpperCase().padStart(4, '0');
+  }
+
+  function buildPixPayload(itemName, value) {
+    const cleanName = removeAccents(PIX_CONFIG.name).substring(0, 25);
+    const cleanCity = removeAccents(PIX_CONFIG.city).substring(0, 15);
+    const cleanDesc = removeAccents(itemName).replace(/[^A-Za-z0-9 ]/g, '').substring(0, 25).trim() || 'Presente';
+
+    const merchantAccount =
+      pixTLV('00', 'br.gov.bcb.pix') +
+      pixTLV('01', PIX_CONFIG.key);
+
+    let payload = '';
+    payload += pixTLV('00', '01');                  // Payload Format Indicator
+    payload += pixTLV('26', merchantAccount);        // Merchant Account Info (Pix)
+    payload += pixTLV('52', '0000');                 // Merchant Category Code
+    payload += pixTLV('53', '986');                  // Transaction Currency (BRL)
+    payload += pixTLV('54', value.toFixed(2));        // Transaction Amount
+    payload += pixTLV('58', 'BR');                   // Country Code
+    payload += pixTLV('59', cleanName);               // Merchant Name
+    payload += pixTLV('60', cleanCity);               // Merchant City
+    payload += pixTLV('62', pixTLV('05', '***'));     // Additional Data (txid)
+    payload += '6304';                                // CRC placeholder (id 63, len 04)
+    payload += crc16ccitt(payload);
+
+    return payload;
+  }
+
+  function openPixModal(itemName, value) {
+    pixCurrentPayload = buildPixPayload(itemName, value);
+    document.getElementById('pixItemName').textContent = itemName;
+    document.getElementById('pixItemValue').textContent =
+      'R$ ' + value.toFixed(2).replace('.', ',');
+    document.getElementById('pixQrImg').src =
+      'https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=' + encodeURIComponent(pixCurrentPayload);
+    const btn = document.getElementById('pixCopyBtn');
+    btn.textContent = 'Copiar Código Pix';
+    btn.classList.remove('copied');
+    document.getElementById('pixOverlay').classList.add('open');
+  }
+
+  function closePixModal() {
+    document.getElementById('pixOverlay').classList.remove('open');
+  }
+
+  function copyPixCode() {
+    const btn = document.getElementById('pixCopyBtn');
+    const finish = () => {
+      btn.textContent = 'Código Copiado ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar Código Pix'; btn.classList.remove('copied'); }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(pixCurrentPayload).then(finish).catch(() => fallbackCopy(finish));
+    } else {
+      fallbackCopy(finish);
+    }
+  }
+
+  function fallbackCopy(done) {
+    const ta = document.createElement('textarea');
+    ta.value = pixCurrentPayload;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePixModal();
+  });
 </script>
 </body>
 </html>
